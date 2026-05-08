@@ -121,7 +121,6 @@ For details on the second assignment (K‑means clustering) and the full report,
 - Implement **momentum** and **learning rate decay** to improve convergence.
 - Add support for **dropout** regularization.
 - Extend the network to handle **regression problems**.
-- Implement the **K‑means clustering** part (Exercise 2) in the same Java framework.
 - Provide a command‑line interface or configuration file to set hyperparameters.
 
 ## License
