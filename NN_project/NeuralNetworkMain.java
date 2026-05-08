@@ -6,15 +6,14 @@ import java.io.IOException;
 public class NeuralNetworkMain {
 
 	public static void main(String[] args) {
-		
-		//NA MPEI INPUT APO XRHSTH GIA TIS PARAKATO TIMES
-		
+
+		//ADD: USER INPUT FOR THE HYPERPARAMETERS
 		int d = 2;
 		int H1 = 3;
 		int H2 = 3;
 		int H3 = 3;
 		int categories = 4;
-		int hiddenFunction = 3; //ACTIVATION FUNCTIONS: 0:NO ACTIVATION 1:SIGMOID, 2:TANH, 3:RELU
+		int hiddenFunction = 3;  //ACTIVATION FUNCTIONS: 0:NO ACTIVATION 1:SIGMOID, 2:TANH, 3:RELU
 		int outputFunction = 1;
 		double learningRate = 0.001;
 		double threshold = 0.001;
@@ -87,16 +86,11 @@ public class NeuralNetworkMain {
             System.err.println("Σφάλμα κατά τη φόρτωση δεδομένων: " + e.getMessage());
         }
         
-        
-        
-		Network network1 = new Network(d, H1, H2, H3, categories , hiddenFunction, outputFunction);
+        Network network1 = new Network(d, H1, H2, H3, categories , hiddenFunction, outputFunction);
 		
 		//network1.printNetwork();
-		
 		network1.train(trainInputs, trainOutputs, epochs, batchSize, learningRate, threshold);
-		
 		//network1.printNetwork();
-		
 		network1.test(testInputs,testOutputs);
 
 	}
