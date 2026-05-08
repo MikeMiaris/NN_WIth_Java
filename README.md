@@ -1,4 +1,64 @@
 
+## Problem Description
+
+### Dataset Generation (ΣΔΤ)
+The assignment required creating a synthetic dataset of **8000 points** inside the square `[-1, 1] × [-1, 1]`, split into:
+
+- **Training set:** 4000 points  
+- **Test set:** 4000 points  
+
+Each point `(x1, x2)` is assigned to one of **four categories (C1–C4)** according to the geometric rules detailed below.
+
+### Classification Rules
+
+| Condition | Label |
+|-----------|-------|
+| `(x1 – 0.5)² + (x2 – 0.5)² < 0.2` and `x2 > 0.5` | C1 |
+| `(x1 – 0.5)² + (x2 – 0.5)² < 0.2` and `x2 < 0.5` | C2 |
+| `(x1 + 0.5)² + (x2 + 0.5)² < 0.2` and `x2 > -0.5` | C1 |
+| `(x1 + 0.5)² + (x2 + 0.5)² < 0.2` and `x2 < -0.5` | C2 |
+| `(x1 – 0.5)² + (x2 + 0.5)² < 0.2` and `x2 > -0.5` | C1 |
+| `(x1 – 0.5)² + (x2 + 0.5)² < 0.2` and `x2 < -0.5` | C2 |
+| `(x1 + 0.5)² + (x2 – 0.5)² < 0.2` and `x2 > 0.5` | C1 |
+| `(x1 + 0.5)² + (x2 – 0.5)² < 0.2` and `x2 < 0.5` | C2 |
+| None of the above and `x1 * x2 > 0` | C3 |
+| None of the above and `x1 * x2 < 0` | C4 |
+
+This creates a challenging distribution: C1 and C2 form small circular clusters around `(0.5,0.5)`, `(±0.5,±0.5)`, while C3 and C4 fill regions in the first/third and second/fourth quadrants, respectively.
+
+---
+
+## Architecture & Design
+
+### Network Topology (PT2 & PT3)
+
+Two MLP variants were implemented as required:
+
+| Network | Hidden Layers | Description |
+|---------|---------------|-------------|
+| **PT2** | 2 hidden | Two hidden layers + output layer |
+| **PT3** | 3 hidden | Three hidden layers + output layer |
+
+**Layer dimensions (configurable):**
+- Input: `d = 2` (features `x1`, `x2`)
+- Hidden 1: `H1` neurons
+- Hidden 2: `H2` neurons  
+- Hidden 3: `H3` neurons (only for PT3)
+- Output: `K = 4` neurons (one per category)
+
+### Activation Functions
+
+| Layer | Options | Recommended |
+|-------|---------|--------------|
+| Hidden layers | `tanh` or `ReLU` | `tanh` (smoother gradients) |
+| Output layer | `softmax` (implicit, via cross‑entropy loss) | Required for multi‑class |
+
+*Why softmax?* The output layer uses softmax to convert raw logits into a probability distribution over the four categories, enabling proper multi‑class classification.
+
+### Loss Function & Output Layer (Softmax)
+
+The assignment called for **multi‑class classification**, so the network uses a **softmax** activation at the output layer combined with **cross‑entropy loss**. During backpropagation, the delta for each output neuron is simply:
+
 This elegant formulation arises from the derivative of the cross‑entropy loss with respect to the softmax inputs, which makes the implementation both correct and efficient.
 
 ### Backpropagation & Gradient Descent
@@ -91,6 +151,7 @@ The results were recorded in a table documented in the assignment report (PDF). 
 4. **Run the neural network:**
    java NeuralNetworkMain
 
+*Note: Compiled `.class` files are also present for quick execution.*
 
 ## Note
 
