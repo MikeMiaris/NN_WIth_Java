@@ -90,3 +90,40 @@ The results were recorded in a table documented in the assignment report (PDF). 
 
 4. **Run the neural network:**
    java NeuralNetworkMain
+
+
+## Note
+
+The current main class loads a **PT3** network with:
+- Hidden layers: `H1=3, H2=3, H3=3`
+- Hidden activation: **ReLU**
+- Output activation: **softmax**
+- Learning rate: `0.001`
+- Batch size: `20` (i.e., `N/20`)
+
+You can modify these values directly in `NeuralNetworkMain.java`.
+
+## Results & Observations
+
+The network successfully learns to classify the four categories with high accuracy. The full experimental tables are included in the assignment report (`YN_project_2024-25.pdf`, in Greek).
+
+Key observations:
+
+- **PT3 (3 hidden layers)** generally achieves higher accuracy than **PT2 (2 hidden layers)** for this dataset, owing to its increased representational capacity.
+- **tanh** tended to provide smoother convergence than **ReLU** for deeper networks, though ReLU avoided vanishing gradient issues when networks were deep.
+- Smaller batch sizes (`B=N/200`) introduced more noise but often led to faster convergence in terms of epoch count.
+- The classification accuracy approaches **~97‑99%** on the test set with well‑tuned hyperparameters.
+
+For details on the second assignment (K‑means clustering) and the full report, please refer to the course materials.
+
+## Future Work
+
+- Implement **momentum** and **learning rate decay** to improve convergence.
+- Add support for **dropout** regularization.
+- Extend the network to handle **regression problems**.
+- Implement the **K‑means clustering** part (Exercise 2) in the same Java framework.
+- Provide a command‑line interface or configuration file to set hyperparameters.
+
+## License
+
+This project is for **educational/academic** purposes. Feel free to use and modify it. Original assignment credit: University of Ioannina, Department of Computer Science & Engineering, 2024‑2025.
