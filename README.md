@@ -81,3 +81,12 @@ The results were recorded in a table documented in the assignment report (PDF). 
    ```bash
    git clone https://github.com/MikeMiaris/NN_WIth_Java.git
    cd NN_WIth_Java/NN_project
+
+2. **Compile the source files:**
+   javac DataGenerator.java DataLoader.java Layer.java Network.java NeuralNetworkMain.java
+
+3. **Generate the datasets:**
+   java DataGenerator
+
+4. **Run the neural network:**
+   java NeuralNetworkMain
