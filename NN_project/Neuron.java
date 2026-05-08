@@ -6,22 +6,20 @@ import java.util.Random;
 
 public class Neuron {
 	
-	private List<Double> inputs = new ArrayList<>();  //eiserxomena inputs
+	private List<Double> inputs = new ArrayList<>();
 	private List<Double> weights = new ArrayList<>(); //IMPORTAMT: H lista ayth antiprosopeyei ta weights ta opoia EISERXONTAI ston neyrona
 	private double output;
 	private double delta; //error
 	private double bias;
 	private int function; //activation functions: 0:no activation 1:sigmoid, 2:Tanh, 3:RELU
 	private int length;  //used for initializing nd parsing through inputs and weights list
-	private double derivative; //paragogos
+	private double derivative;
 	
 	//Constructor
-	//Ylopoiei kai thn arxikopoihsh ton neuronon toy input layer me tis katallhes synthikes
 	public Neuron(int function, int inputsNum){
 		Random rand = new Random();
 		this.function = function;
 		//System.out.println("Activation function "+this.function);
-		
 		if(function == 0 ) { 
 			this.bias = 0.0;
 			
@@ -105,7 +103,6 @@ public class Neuron {
     	return this.derivative;
     }
     
-	
 	//Calculate output of Neuron
 	public void calculate() {
 		double sum = 0;
@@ -136,7 +133,7 @@ public class Neuron {
 			}
 		}
 					
-		//upologismos derivative gia xrhsh sto backpropagation
+		//compute derivative for backpropagation
 		if (this.function == 1) { //SIGMOID derivative
 			this.derivative = sigmoidDerivative(sum);
 		}
@@ -164,7 +161,7 @@ public class Neuron {
         return Math.max(0, x);
     }
 	
-    //Paragogoi ton parapano synartiseon energopoihshs
+    //Derivative of the activation functions
     public double sigmoidDerivative(double x) {
         return output * (1 - x);
     }
