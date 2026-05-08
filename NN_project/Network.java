@@ -6,7 +6,7 @@ public class Network {
 	
 	List<Layer> layers = new ArrayList<>();
 	
-	//Constructor gia PT2
+	//Constructor for PT2
 	public Network(int d, int H1, int H2 , int categories , int hiddenFunction, int outputFunction) {
 
 		//input layer
@@ -25,7 +25,7 @@ public class Network {
 		this.layers.add(layerOut);
 	}
 	
-	//Constructor gia PT3
+	//Constructor for PT3
 	public Network(int d, int H1, int H2 ,int H3, int categories , int hiddenFunction, int outputFunction) {
 
 		//input layer
@@ -47,7 +47,7 @@ public class Network {
 		this.layers.add(layerOut);
 	}
 	
-	//Getter gia ta Layers
+	//Getter for Layers
 	public List<Layer> getLayers() {
 		return this.layers;
 	}
@@ -82,7 +82,7 @@ public class Network {
 		}
 	}
 	
-	//Ouptuts Calculation for the output layer
+	//Outputs Calculation for the Output Layer
 	public void output() {	
 	    Layer outputLayer = this.layers.get(this.layers.size() - 1);
 	    for (Neuron neuron : outputLayer.getNeurons()) {
@@ -162,7 +162,7 @@ public class Network {
 		
 		
 		
-		//compute hidden layer deltas
+		//Compute hidden layer deltas
 		for(int i = lastLayerIndex-1; i > 0 ; i--) {
 			Layer frontLayer = this.layers.get(i+1);
 			Layer backLayer = this.layers.get(i);
@@ -188,7 +188,6 @@ public class Network {
 				}	
 			}
 			
-			
 			//do the math
 			double sum = 0;
 			for(int j = 0; j < backLayer.getSize(); j++) { //gia thn diplh lista weights
@@ -212,7 +211,7 @@ public class Network {
 		}
 		
 		
-		//weights update
+		//Weights update
 		for (int i = 1; i <= lastLayerIndex; i++) {
 		    Layer currentLayer = this.layers.get(i);
 		    Layer previousLayer = this.layers.get(i - 1);
@@ -227,8 +226,6 @@ public class Network {
 		    }
 		}
 
-		
-		
 		//clear old inputs now that backdrop is done
 		for (int j = 0; j < this.layers.size(); j++) {
 	        Layer layer = this.layers.get(j);
@@ -240,7 +237,7 @@ public class Network {
 		
 	}
 
-	//Training Looop
+	//Training Loop
 	public void train(double[][] trainInputs, double[][] trainOutputs, int epochs, int batchSize, double learningRate, double threshold) {
 	    
 		int numExamples = trainInputs.length;
@@ -296,32 +293,22 @@ public class Network {
 		
 		int correct = 0;
 		
-		//forward shit
 		for(int i = 0; i < inputs.length; i++) {
-			
-			//TESTING
 	        System.out.println("Input values for test example " + i + ":");
 	        for (int k = 0; k < inputs[i].length; k++) {
 	            System.out.println(inputs[i][k] + " ");
 	        }
-		    //
-	        
 			loadInputs(inputs,i);
-			
-			
 			forward();
 			output();
 			
-			
-			//TESTING
 	        int lastLayerIndex1 = this.layers.size() - 1;
 	        Layer outputLayer1 = this.layers.get(lastLayerIndex1);
 	        for (int j = 0; j < outputLayer1.getSize(); j++) {
 	            Neuron neuron = outputLayer1.getNeurons().get(j);
 	            System.out.println("Softmax output for class " + j + ": " + neuron.getOutput());
 	        }
-			///
-	        
+			
 			//clear inputs
 			for (int j = 0; j < this.layers.size(); j++) {
 		        Layer layer = this.layers.get(j);
@@ -344,8 +331,6 @@ public class Network {
 				}
 			}
 			System.out.println("Actual Class = "+actualClass);
-			
-			//int prediction = 0;
 			
 			double maxOutput = Double.NEGATIVE_INFINITY;
 			int prediction = 0;
@@ -394,7 +379,7 @@ public class Network {
 		}
 	}
 	
-	//xrhsimpoieitai se kathe epoch gia na kanei shuffle ta dedomena
+	//used in each epoch to shuffle the data
 	public void shuffleData(double[][] inputs, double[][] outputs) {
 	    java.util.Random random = new java.util.Random();
 	    for (int i = inputs.length - 1; i > 0; i--) {
